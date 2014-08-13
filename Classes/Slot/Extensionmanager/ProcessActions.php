@@ -48,13 +48,15 @@ class ProcessActions {
 		if (!empty($extension['_md5_values_when_last_written'])) {
 			$md5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extension['key']);
 			if ($extension['_md5_values_when_last_written'] !== serialize($md5HashArray)) {
+				$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
+					':slot.extensionmanager.process_actions.modified_files.title');
 				$actions[] = '<a href="' .
 					\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
 						'DevtoolsModifiedFilesController::listFiles',
 						array(
 							'extensionKey' => $extension['key']
 						)
-					) . '" class="list-modified-files">' .
+					) . '" class="list-modified-files" title="' . htmlspecialchars($title) . '">' .
 					\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('status-dialog-warning') . '</a>';
 				if (!$this->isJavascriptIncluded) {
 					$this->includeJavascript();

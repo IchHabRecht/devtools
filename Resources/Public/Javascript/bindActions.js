@@ -17,7 +17,7 @@
 					success: function (data) {
 						$('.typo3-extension-manager').unmask();
 						TYPO3.Dialog.InformationDialog({
-							title: 'Test title',
+							title: data.title,
 							msg: data.message
 						});
 					},

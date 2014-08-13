@@ -84,6 +84,7 @@ class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\Abst
 				}
 
 				$ajaxObject->setContentFormat('json');
+				$ajaxObject->addContent('title', $this->translate('title'));
 				$ajaxObject->addContent('message', implode('<br /><br />', $messageArray));
 			}
 		}

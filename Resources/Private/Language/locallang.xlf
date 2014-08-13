@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-08-13T22:46:35Z" product-name="devtools">
+		<header />
+		<body>
+			<trans-unit id="slot.extensionmanager.process_actions.modified_files.title">
+				<source>Show modified files</source>
+			</trans-unit>
+			<trans-unit id="slot.extensionmanager.process_actions.modified_files.changed_files">
+				<source>Changed files</source>
+			</trans-unit>
+			<trans-unit id="slot.extensionmanager.process_actions.modified_files.new_files">
+				<source>New files</source>
+			</trans-unit>
+			<trans-unit id="slot.extensionmanager.process_actions.modified_files.removed_files">
+				<source>Removed files</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
