@@ -1,5 +1,5 @@
 <?php
-namespace IchHabRecht\Devtools\Extensionmanager;
+namespace IchHabRecht\Devtools\Slot\Extensionmanager;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -32,7 +32,7 @@ namespace IchHabRecht\Devtools\Extensionmanager;
  * @package TYPO3
  * @subpackage tx_devtools
  */
-class Actions {
+class ProcessActions {
 
 	/**
 	 * @var bool

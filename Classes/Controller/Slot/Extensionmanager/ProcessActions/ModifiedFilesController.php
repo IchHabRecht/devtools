@@ -1,5 +1,5 @@
 <?php
-namespace IchHabRecht\Devtools\Controller;
+namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -32,7 +32,12 @@ namespace IchHabRecht\Devtools\Controller;
  * @package TYPO3
  * @subpackage tx_devtools
  */
-class ModifiedFilesController {
+class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController {
+
+	/**
+	 * @var string
+	 */
+	protected $translationPrefix = 'extensionmanager.process_actions.modified_files';
 
 	/**
 	 * @param array $ajaxParams
@@ -66,13 +71,16 @@ class ModifiedFilesController {
 
 				$messageArray = array();
 				if (!empty($changedFiles)) {
-					$messageArray[] = '<strong>Changed Files:</strong><br />' . implode('<br />', array_keys($changedFiles));
+					$messageArray[] = '<strong>' . $this->translate('changed_files') . ':</strong><br />' .
+						implode('<br />', array_keys($changedFiles));
 				}
 				if (!empty($newFiles)) {
-					$messageArray[] = '<strong>New Files:</strong><br />' . implode('<br />', $newFiles);
+					$messageArray[] = '<strong>' . $this->translate('new_files') . ':</strong><br />' .
+						implode('<br />', $newFiles);
 				}
 				if (!empty($removedFiles)) {
-					$messageArray[] = '<strong>Removed Files:</strong><br />' . implode('<br />', $removedFiles);
+					$messageArray[] = '<strong>' . $this->translate('removed_files') . ':</strong><br />' .
+						implode('<br />', $removedFiles);
 				}
 
 				$ajaxObject->setContentFormat('json');
