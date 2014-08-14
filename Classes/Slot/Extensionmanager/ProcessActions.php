@@ -79,6 +79,16 @@ class ProcessActions {
 		$pageRenderer->addJsFile(
 			\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('devtools') . 'Resources/Public/Javascript/bindActions.js'
 		);
+		$pageRenderer->addInlineLanguageLabel(
+			'devtools.error.title',
+			$GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
+				':slot.error.title')
+		);
+		$pageRenderer->addInlineLanguageLabel(
+			'devtools.error.message',
+			$GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
+				':slot.error.message')
+		);
 		$this->isJavascriptIncluded = TRUE;
 	}
 

@@ -3,6 +3,15 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2014-08-13T22:46:35Z" product-name="devtools" target-language="de">
 		<header />
 		<body>
+			<trans-unit id="slot.error.title">
+				<source>Error</source>
+				<target state="translated">Fehler</target>
+			</trans-unit>
+			<trans-unit id="slot.error.message">
+				<source>An error occurred and the action wasn't processed completely.</source>
+				<target state="translated">Ein Fehler ist aufgetreten und die Anfrage konnte nicht vollständig ausgeführt werden.</target>
+			</trans-unit>
+
 			<trans-unit id="slot.extensionmanager.process_actions.modified_files.title">
 				<source>Show modified files</source>
 				<target state="translated">Geänderte Dateien anzeigen</target>

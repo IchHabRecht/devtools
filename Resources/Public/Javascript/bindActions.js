@@ -15,17 +15,33 @@
 				$.ajax({
 					url: $(this).data('href'),
 					success: function (data) {
-						$('.typo3-extension-manager').unmask();
-						TYPO3.Dialog.InformationDialog({
-							title: data.title,
-							msg: data.message
-						});
+						if (data.message) {
+							showInformationDialog(data.title, data.message);
+						} else {
+							showErrorDialog();
+						}
 					},
 					error: function () {
-						$('.typo3-extension-manager').unmask();
+						showErrorDialog();
 					}
 				});
 			});
+		});
+	}
+
+	function showInformationDialog(title, message) {
+		$('.typo3-extension-manager').unmask();
+		TYPO3.Dialog.InformationDialog({
+			title: title,
+			msg: message
+		});
+	}
+
+	function showErrorDialog() {
+		$('.typo3-extension-manager').unmask();
+		TYPO3.Dialog.ErrorDialog({
+			title: TYPO3.l10n.localize('devtools.error.title'),
+			msg: TYPO3.l10n.localize('devtools.error.message')
 		});
 	}
 
