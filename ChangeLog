@@ -1,0 +1,11 @@
+2014-08-14         [RELEASE] Release of devtools 0.1.0 (Nicole Cordes)
+2014-08-14 6959991 [TASK] Added documentation (Nicole Cordes)
+2014-08-14 5365d48 [FEATURE] Add action to rewrite ext_emconf.php file for modified extensions (Nicole Cordes)
+2014-08-14 0b16a0b [FEATURE] Display error dialog if an error occurs (Nicole Cordes)
+2014-08-13 2f795d2 [TASK] Add translations (Nicole Cordes)
+2014-08-13 bb0b5e8 [TASK] Rework file and folder structure (Nicole Cordes)
+2014-08-13 ed42003 [BUGFIX] Add javascript action to dataTables draw listener (Nicole Cordes)
+2014-08-13 81c8448 [FEATURE] Add action to display modified files by md5 file check (Nicole Cordes)
+2014-08-06 998efd1 [TASK] Add basis files (Nicole Cordes)
+
+
