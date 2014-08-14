@@ -65,7 +65,11 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
 
 				/** @var \TYPO3\CMS\Extensionmanager\Utility\EmConfUtility $emConfUtility */
 				$emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility');
-				$emConfContent = $emConfUtility->constructEmConf(array('EM_CONF' => $EM_CONF[$extensionKey]));
+				$extensionData = array(
+					'extKey' => $extensionKey,
+					'EM_CONF' => $EM_CONF[$extensionKey],
+				);
+				$emConfContent = $emConfUtility->constructEmConf($extensionData);
 				\TYPO3\CMS\Core\Utility\GeneralUtility::writeFile($extensionConfigurationPath, $emConfContent);
 			}
 
