@@ -22,6 +22,13 @@
 			<trans-unit id="slot.extensionmanager.process_actions.modified_files.removed_files">
 				<source>Removed files</source>
 			</trans-unit>
+
+			<trans-unit id="slot.extensionmanager.process_actions.update_configuration.title">
+				<source>Update ext_emconf.php file</source>
+			</trans-unit>
+			<trans-unit id="slot.extensionmanager.process_actions.update_configuration.message">
+				<source>The ext_emconf.php file of extension &quot;%1$s&quot; was updated with a cleaned up EM_CONF array.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

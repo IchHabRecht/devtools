@@ -6,7 +6,7 @@
 	});
 
 	function bindActions() {
-		$('.list-modified-files').not('.transformed').each(function () {
+		$('.list-modified-files, .update-configuration-file').not('.transformed').each(function () {
 			$(this).data('href', $(this).attr('href'));
 			$(this).attr('href', '#');
 			$(this).addClass('transformed');

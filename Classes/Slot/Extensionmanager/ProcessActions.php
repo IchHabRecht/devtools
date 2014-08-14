@@ -50,7 +50,7 @@ class ProcessActions {
 			if ($extension['_md5_values_when_last_written'] !== serialize($md5HashArray)) {
 				$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
 					':slot.extensionmanager.process_actions.modified_files.title');
-				$actions[] = '<a href="' .
+				$actions['isModified'] = '<a href="' .
 					\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
 						'DevtoolsModifiedFilesController::listFiles',
 						array(
@@ -64,10 +64,40 @@ class ProcessActions {
 			}
 		}
 
-		return array(
-			$extension,
-			$actions
-		);
+		return FALSE;
+	}
+
+	/**
+	 * @param array $extension
+	 * @param array $actions
+	 * @return array
+	 */
+	public function updateExtensionConfigurationFile($extension, $actions) {
+		if (isset($actions['isModified'])) {
+			try {
+				$packageManager = \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->getEarlyInstance(('TYPO3\\Flow\\Package\\PackageManager'));
+				/** @var \TYPO3\Flow\Package\PackageInterface $package */
+				$package = $packageManager->getPackage($extension['key']);
+				if (!$package->isProtected() && $package->getPackageMetaData()->getPackageType() !== 'typo3-cms-framework') {
+					$configurationFile = $package->getPackagePath() . 'ext_emconf.php';
+					if (is_writable($configurationFile)) {
+						$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
+							':slot.extensionmanager.process_actions.update_configuration.title');
+						$actions['updateConfiguration'] = '<a href="' .
+							\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+								'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
+								array(
+									'extensionKey' => $extension['key']
+								)
+							) . '" class="update-configuration-file" title="' . $title . '">' .
+							\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('actions-document-export-t3d') . '</a>';
+					}
+				}
+			} catch (\TYPO3\Flow\Package\Exception\UnknownPackageException $e) {
+			}
+		}
+
+		return FALSE;
 	}
 
 	/**
