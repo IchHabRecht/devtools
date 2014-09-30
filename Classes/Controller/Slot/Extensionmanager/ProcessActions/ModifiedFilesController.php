@@ -60,7 +60,7 @@ class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\Abst
 			}
 
 			if (!empty($extension['_md5_values_when_last_written'])) {
-				$originalMd5HashArray = unserialize($extension['_md5_values_when_last_written']);
+				$originalMd5HashArray = (array) unserialize($extension['_md5_values_when_last_written']);
 				$originalFileArray = array_keys($originalMd5HashArray);
 				$currentMd5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
 				$currentFileArray = array_keys($currentMd5HashArray);
