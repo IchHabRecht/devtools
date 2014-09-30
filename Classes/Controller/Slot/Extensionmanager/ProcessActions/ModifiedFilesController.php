@@ -65,9 +65,15 @@ class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\Abst
 				$currentMd5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
 				$currentFileArray = array_keys($currentMd5HashArray);
 
+				$filterFunction = function($value) {
+					return !empty($value);
+				};
 				$removedFiles = array_diff($originalFileArray, $currentFileArray);
+				$removedFiles = array_filter($removedFiles, $filterFunction);
 				$newFiles = array_diff($currentFileArray, $originalFileArray);
+				$newFiles = array_filter($newFiles, $filterFunction);
 				$changedFiles = array_diff($originalMd5HashArray, $currentMd5HashArray);
+				$changedFiles = array_filter($changedFiles, $filterFunction);
 
 				$messageArray = array();
 				if (!empty($changedFiles)) {
