@@ -44,7 +44,7 @@ class ProcessActions {
 	 * @param array $actions
 	 * @return array
 	 */
-	public function markModifiedExtension($extension, $actions) {
+	public function markModifiedExtension($extension, &$actions) {
 		if (!empty($extension['_md5_values_when_last_written'])) {
 			$md5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extension['key']);
 			if ($extension['_md5_values_when_last_written'] !== serialize($md5HashArray)) {
@@ -72,7 +72,7 @@ class ProcessActions {
 	 * @param array $actions
 	 * @return array
 	 */
-	public function updateExtensionConfigurationFile($extension, $actions) {
+	public function updateExtensionConfigurationFile($extension, &$actions) {
 		if (isset($actions['isModified'])) {
 			try {
 				$packageManager = \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->getEarlyInstance(('TYPO3\\Flow\\Package\\PackageManager'));
