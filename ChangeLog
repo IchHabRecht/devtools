@@ -1,3 +1,8 @@
+2014-11-12         [RELEASE] Release of devtools 0.1.1 (Nicole Cordes)
+2014-11-11 3c3f95e [BUGFIX] Fix referenced parameter for PHP 5.4 and above (Nicole Cordes)
+2014-09-30 0e17eb5 [BUGFIX] Prevent empty values in file arrays (Nicole Cordes)
+2014-09-30 5a2d1d3 [BUGFIX] Force hash value to be an array (Nicole Cordes)
+
 2014-08-14         [RELEASE] Release of devtools 0.1.0 (Nicole Cordes)
 2014-08-14 6959991 [TASK] Added documentation (Nicole Cordes)
 2014-08-14 5365d48 [FEATURE] Add action to rewrite ext_emconf.php file for modified extensions (Nicole Cordes)
@@ -7,5 +12,3 @@
 2014-08-13 ed42003 [BUGFIX] Add javascript action to dataTables draw listener (Nicole Cordes)
 2014-08-13 81c8448 [FEATURE] Add action to display modified files by md5 file check (Nicole Cordes)
 2014-08-06 998efd1 [TASK] Add basis files (Nicole Cordes)
-
-
