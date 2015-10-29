@@ -31,18 +31,36 @@
 
 	function showInformationDialog(title, message) {
 		$('.typo3-extension-manager').unmask();
-		TYPO3.Dialog.InformationDialog({
-			title: title,
-			msg: message
-		});
+		top.TYPO3.Modal.confirm(
+			title,
+			message,
+			top.TYPO3.Severity.info,
+			[{
+				text: TYPO3.lang['button.ok'] || 'OK',
+				btnClass: 'btn-' + top.TYPO3.Modal.getSeverityClass(top.TYPO3.Severity.info),
+				active: true,
+				trigger: function() {
+					top.TYPO3.Modal.dismiss();
+				}
+			}]
+		);
 	}
 
 	function showErrorDialog() {
 		$('.typo3-extension-manager').unmask();
-		TYPO3.Dialog.ErrorDialog({
-			title: TYPO3.l10n.localize('devtools.error.title'),
-			msg: TYPO3.l10n.localize('devtools.error.message')
-		});
+		top.TYPO3.Modal.confirm(
+			TYPO3.lang['devtools.error.title'],
+			TYPO3.lang['devtools.error.message'],
+			top.TYPO3.Severity.error,
+			[{
+				text: TYPO3.lang['button.ok'] || 'OK',
+				btnClass: 'btn-' + top.TYPO3.Modal.getSeverityClass(top.TYPO3.Severity.error),
+				active: true,
+				trigger: function() {
+					top.TYPO3.Modal.dismiss();
+				}
+			}]
+		);
 	}
 
 }(jQuery));
