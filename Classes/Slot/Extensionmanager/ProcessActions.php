@@ -25,6 +25,11 @@ namespace IchHabRecht\Devtools\Slot\Extensionmanager;
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Package\Exception\UnknownPackageException;
+use TYPO3\CMS\Core\Package\Package;
+use TYPO3\CMS\Core\Package\PackageManager;
+
 /**
  * Adds icons to extension manager list view
  *
@@ -75,8 +80,8 @@ class ProcessActions {
 	public function updateExtensionConfigurationFile($extension, &$actions) {
 		if (isset($actions['isModified'])) {
 			try {
-				$packageManager = \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->getEarlyInstance(('TYPO3\\Flow\\Package\\PackageManager'));
-				/** @var \TYPO3\Flow\Package\PackageInterface $package */
+				$packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
+				/** @var Package $package */
 				$package = $packageManager->getPackage($extension['key']);
 				if (!$package->isProtected() && $package->getPackageMetaData()->getPackageType() !== 'typo3-cms-framework') {
 					$configurationFile = $package->getPackagePath() . 'ext_emconf.php';
@@ -93,7 +98,7 @@ class ProcessActions {
 							\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('actions-document-export-t3d') . '</a>';
 					}
 				}
-			} catch (\TYPO3\Flow\Package\Exception\UnknownPackageException $e) {
+			} catch (UnknownPackageException $e) {
 			}
 		}
 

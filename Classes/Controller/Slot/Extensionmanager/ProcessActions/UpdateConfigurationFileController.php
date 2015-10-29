@@ -25,6 +25,9 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Package\PackageManager;
+
 /**
  * Shows modified files for an extension
  *
@@ -47,7 +50,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
 	public function updateConfigurationFile($ajaxParams, $ajaxObject) {
 		$extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('extensionKey');
 		if (!empty($extensionKey)) {
-			$packageManager = \TYPO3\CMS\Core\Core\Bootstrap::getInstance()->getEarlyInstance(('TYPO3\\Flow\\Package\\PackageManager'));
+			$packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
 			$extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
 			$_EXTKEY = $extensionKey;
 			$EM_CONF = NULL;
