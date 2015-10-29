@@ -27,6 +27,7 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
 
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
 
 /**
  * Shows modified files for an extension
@@ -66,8 +67,8 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
 				$currentMd5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
 				$EM_CONF[$extensionKey]['_md5_values_when_last_written'] = serialize($currentMd5HashArray);
 
-				/** @var \TYPO3\CMS\Extensionmanager\Utility\EmConfUtility $emConfUtility */
-				$emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extensionmanager\Utility\EmConfUtility');
+				/** @var EmConfUtility $emConfUtility */
+				$emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(EmConfUtility::class);
 				$extensionData = array(
 					'extKey' => $extensionKey,
 					'EM_CONF' => $EM_CONF[$extensionKey],
