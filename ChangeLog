@@ -1,3 +1,13 @@
+2015-10-29         [RELEASE] Release of devtools 0.2.0 (Nicole Cordes)
+2015-10-29 93ecdb7 [TASK] Set dependency to TYPO3 7.5 (Nicole Cordes)
+2015-10-29 568080f [TASK] Reformat code according to TYPO3 Coding Guidelines (Nicole Cordes)
+2015-10-29 aec6a72 [TASK] Use JS Modal window Api (Nicole Cordes)
+2015-10-29 e19c68d [TASK] Remove unnecessary array_filter function (Nicole Cordes)
+2015-10-29 062b48a [BUGFIX] Fix initialization of TYPO3\CMS\Extensionmanager\Utility\EmConfUtility (Nicole Cordes)
+2015-10-29 fc2204c [TASK] Use new Icon Api (Nicole Cordes)
+2015-10-29 3450cca [TASK] Streamline ProcessActions access point (Nicole Cordes)
+2015-10-29 4087102 [TASK] Replace old PackageManager (Nicole Cordes)
+
 2014-11-12         [RELEASE] Release of devtools 0.1.1 (Nicole Cordes)
 2014-11-11 3c3f95e [BUGFIX] Fix referenced parameter for PHP 5.4 and above (Nicole Cordes)
 2014-09-30 0e17eb5 [BUGFIX] Prevent empty values in file arrays (Nicole Cordes)
