@@ -25,6 +25,7 @@ namespace IchHabRecht\Devtools\Slot\Extensionmanager;
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 
+use IchHabRecht\Devtools\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Package\Exception\UnknownPackageException;
 use TYPO3\CMS\Core\Package\Package;
@@ -47,26 +48,15 @@ class ProcessActions {
 	/**
 	 * @param array $extension
 	 * @param array $actions
-	 * @return array
+	 * @return bool
 	 */
-	public function markModifiedExtension($extension, &$actions) {
-		if (!empty($extension['_md5_values_when_last_written'])) {
-			$md5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extension['key']);
-			if ($extension['_md5_values_when_last_written'] !== serialize($md5HashArray)) {
-				$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
-					':slot.extensionmanager.process_actions.modified_files.title');
-				$actions['isModified'] = '<a href="' .
-					\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
-						'DevtoolsModifiedFilesController::listFiles',
-						array(
-							'extensionKey' => $extension['key']
-						)
-					) . '" class="list-modified-files" title="' . htmlspecialchars($title) . '">' .
-					\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('status-dialog-warning') . '</a>';
-				if (!$this->isJavascriptIncluded) {
-					$this->includeJavascript();
-				}
+	public function processActions($extension, &$actions) {
+		if ($this->isExtensionModified($extension)) {
+			if (!$this->isJavascriptIncluded) {
+				$this->includeJavascript();
 			}
+			$actions[] = $this->markModifiedExtension($extension);
+			$actions[] = $this->updateExtensionConfigurationFile($extension);
 		}
 
 		return FALSE;
@@ -74,39 +64,67 @@ class ProcessActions {
 
 	/**
 	 * @param array $extension
-	 * @param array $actions
-	 * @return array
+	 * @return bool
 	 */
-	public function updateExtensionConfigurationFile($extension, &$actions) {
-		if (isset($actions['isModified'])) {
-			try {
-				$packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
-				/** @var Package $package */
-				$package = $packageManager->getPackage($extension['key']);
-				if (!$package->isProtected() && $package->getPackageMetaData()->getPackageType() !== 'typo3-cms-framework') {
-					$configurationFile = $package->getPackagePath() . 'ext_emconf.php';
-					if (is_writable($configurationFile)) {
-						$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
-							':slot.extensionmanager.process_actions.update_configuration.title');
-						$actions['updateConfiguration'] = '<a href="' .
-							\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
-								'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
-								array(
-									'extensionKey' => $extension['key']
-								)
-							) . '" class="update-configuration-file" title="' . $title . '">' .
-							\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('actions-document-export-t3d') . '</a>';
-					}
-				}
-			} catch (UnknownPackageException $e) {
-			}
+	protected function isExtensionModified($extension) {
+		if (!empty($extension['_md5_values_when_last_written'])) {
+			$md5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extension['key']);
+
+			return $extension['_md5_values_when_last_written'] !== serialize($md5HashArray);
 		}
 
 		return FALSE;
 	}
 
 	/**
-	 * @return void
+	 * @param array $extension
+	 * @return string
+	 */
+	protected function markModifiedExtension($extension) {
+		$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
+			':slot.extensionmanager.process_actions.modified_files.title');
+		return '<a href="' .
+			\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+				'DevtoolsModifiedFilesController::listFiles',
+				array(
+					'extensionKey' => $extension['key']
+				)
+			) . '" class="list-modified-files" title="' . htmlspecialchars($title) . '">' .
+			\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('status-dialog-warning') . '</a>';
+	}
+
+	/**
+	 * @param array $extension
+	 * @return string
+	 */
+	protected function updateExtensionConfigurationFile($extension) {
+		try {
+			$packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
+			/** @var Package $package */
+			$package = $packageManager->getPackage($extension['key']);
+			if (!$package->isProtected() && $package->getPackageMetaData()->getPackageType() !== 'typo3-cms-framework') {
+				$configurationFile = $package->getPackagePath() . 'ext_emconf.php';
+				if (is_writable($configurationFile)) {
+					$title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
+						':slot.extensionmanager.process_actions.update_configuration.title');
+					return '<a href="' .
+						\TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+							'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
+							array(
+								'extensionKey' => $extension['key']
+							)
+						) . '" class="update-configuration-file" title="' . $title . '">' .
+						\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('actions-document-export-t3d') . '</a>';
+				}
+			}
+		} catch (UnknownPackageException $e) {
+		}
+
+		return '';
+	}
+
+	/**
+	 * Add Javascript files and settings
 	 */
 	protected function includeJavascript() {
 		/** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
