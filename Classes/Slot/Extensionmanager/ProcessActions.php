@@ -27,6 +27,8 @@ namespace IchHabRecht\Devtools\Slot\Extensionmanager;
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Package\Exception\UnknownPackageException;
 use TYPO3\CMS\Core\Package\Package;
 use TYPO3\CMS\Core\Package\PackageManager;
@@ -41,9 +43,21 @@ use TYPO3\CMS\Core\Package\PackageManager;
 class ProcessActions {
 
 	/**
+	 * @var IconFactory
+	 */
+	protected $iconFactory;
+
+	/**
 	 * @var bool
 	 */
 	protected $isJavascriptIncluded = FALSE;
+
+	/**
+	 * @param IconFactory $iconFactory
+	 */
+	public function injectIconFactory(IconFactory $iconFactory) {
+		$this->iconFactory = $iconFactory;
+	}
 
 	/**
 	 * @param array $extension
@@ -57,6 +71,11 @@ class ProcessActions {
 			}
 			$actions[] = $this->markModifiedExtension($extension);
 			$actions[] = $this->updateExtensionConfigurationFile($extension);
+		} else {
+			$actions[] = '<span class="btn btn-default disabled">' .
+				$this->iconFactory->getIcon('empty-empty', Icon::SIZE_SMALL)->render() . '</span>';
+			$actions[] = '<span class="btn btn-default disabled">' .
+				$this->iconFactory->getIcon('empty-empty', Icon::SIZE_SMALL)->render() . '</span>';
 		}
 
 		return FALSE;
@@ -89,8 +108,8 @@ class ProcessActions {
 				array(
 					'extensionKey' => $extension['key']
 				)
-			) . '" class="list-modified-files" title="' . htmlspecialchars($title) . '">' .
-			\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('status-dialog-warning') . '</a>';
+			) . '" class="btn btn-default list-modified-files" title="' . htmlspecialchars($title) . '">' .
+			$this->iconFactory->getIcon('status-dialog-warning', Icon::SIZE_SMALL)->render() . '</a>';
 	}
 
 	/**
@@ -113,8 +132,8 @@ class ProcessActions {
 							array(
 								'extensionKey' => $extension['key']
 							)
-						) . '" class="update-configuration-file" title="' . $title . '">' .
-						\TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIcon('actions-document-export-t3d') . '</a>';
+						) . '" class="btn btn-default update-configuration-file" title="' . $title . '">' .
+						$this->iconFactory->getIcon('actions-document-export-t3d', Icon::SIZE_SMALL)->render() . '</a>';
 				}
 			}
 		} catch (UnknownPackageException $e) {
