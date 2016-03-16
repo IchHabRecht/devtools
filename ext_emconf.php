@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "devtools".
  *
- * Auto generated 29-10-2015 23:25
+ * Auto generated 16-03-2016 18:47
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = array (
   'author' => 'Nicole Cordes',
   'author_email' => 'typo3@cordes.co',
   'author_company' => 'CPS-IT GmbH',
-  'version' => '0.2.0',
+  'version' => '0.2.1',
   'constraints' => 
   array (
     'depends' => 
@@ -35,6 +35,6 @@ $EM_CONF[$_EXTKEY] = array (
     array (
     ),
   ),
-  '_md5_values_when_last_written' => 'a:17:{s:9:"ChangeLog";s:4:"bcf6";s:12:"ext_icon.gif";s:4:"2712";s:17:"ext_localconf.php";s:4:"2796";s:50:"Classes/Controller/Slot/AbstractSlotController.php";s:4:"2764";s:83:"Classes/Controller/Slot/Extensionmanager/ProcessActions/ModifiedFilesController.php";s:4:"e56c";s:93:"Classes/Controller/Slot/Extensionmanager/ProcessActions/UpdateConfigurationFileController.php";s:4:"8a2e";s:48:"Classes/Slot/Extensionmanager/ProcessActions.php";s:4:"d0de";s:36:"Classes/Utility/ExtensionUtility.php";s:4:"f980";s:26:"Documentation/Includes.txt";s:4:"6d5f";s:23:"Documentation/Index.rst";s:4:"5363";s:26:"Documentation/Settings.yml";s:4:"03e2";s:46:"Documentation/Images/dialog_modified_files.jpg";s:4:"b064";s:40:"Documentation/Images/list_view_icons.jpg";s:4:"340f";s:36:"Documentation/Introduction/Index.rst";s:4:"69d5";s:43:"Resources/Private/Language/de.locallang.xlf";s:4:"c7c2";s:40:"Resources/Private/Language/locallang.xlf";s:4:"c492";s:42:"Resources/Public/Javascript/bindActions.js";s:4:"7cbb";}',
+  '_md5_values_when_last_written' => 'a:17:{s:9:"ChangeLog";s:4:"9550";s:12:"ext_icon.gif";s:4:"2712";s:17:"ext_localconf.php";s:4:"2796";s:50:"Classes/Controller/Slot/AbstractSlotController.php";s:4:"2764";s:83:"Classes/Controller/Slot/Extensionmanager/ProcessActions/ModifiedFilesController.php";s:4:"e56c";s:93:"Classes/Controller/Slot/Extensionmanager/ProcessActions/UpdateConfigurationFileController.php";s:4:"8a2e";s:48:"Classes/Slot/Extensionmanager/ProcessActions.php";s:4:"d0de";s:36:"Classes/Utility/ExtensionUtility.php";s:4:"f980";s:26:"Documentation/Includes.txt";s:4:"6d5f";s:23:"Documentation/Index.rst";s:4:"5363";s:26:"Documentation/Settings.yml";s:4:"03e2";s:46:"Documentation/Images/dialog_modified_files.jpg";s:4:"b064";s:40:"Documentation/Images/list_view_icons.jpg";s:4:"340f";s:36:"Documentation/Introduction/Index.rst";s:4:"69d5";s:43:"Resources/Private/Language/de.locallang.xlf";s:4:"c7c2";s:40:"Resources/Private/Language/locallang.xlf";s:4:"c492";s:42:"Resources/Public/Javascript/bindActions.js";s:4:"9468";}',
 );
 

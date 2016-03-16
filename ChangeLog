@@ -1,3 +1,6 @@
+2016-03-16         [RELEASE] Release of devtools 0.2.1 (Nicole Cordes)
+2016-03-16 10f54ca [BUGFIX] Remove removed JavaScript functions (Nicole Cordes)
+
 2015-10-29         [RELEASE] Release of devtools 0.2.0 (Nicole Cordes)
 2015-10-29 93ecdb7 [TASK] Set dependency to TYPO3 7.5 (Nicole Cordes)
 2015-10-29 568080f [TASK] Reformat code according to TYPO3 Coding Guidelines (Nicole Cordes)
