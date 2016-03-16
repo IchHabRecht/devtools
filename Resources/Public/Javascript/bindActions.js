@@ -11,7 +11,6 @@
 			$(this).attr('href', '#');
 			$(this).addClass('transformed');
 			$(this).click(function () {
-				$('.typo3-extension-manager').mask();
 				$.ajax({
 					url: $(this).data('href'),
 					success: function (data) {
@@ -30,7 +29,6 @@
 	}
 
 	function showInformationDialog(title, message) {
-		$('.typo3-extension-manager').unmask();
 		top.TYPO3.Modal.confirm(
 			title,
 			message,
@@ -47,7 +45,6 @@
 	}
 
 	function showErrorDialog() {
-		$('.typo3-extension-manager').unmask();
 		top.TYPO3.Modal.confirm(
 			TYPO3.lang['devtools.error.title'],
 			TYPO3.lang['devtools.error.message'],
