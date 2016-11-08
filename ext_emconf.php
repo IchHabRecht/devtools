@@ -21,17 +21,17 @@ $EM_CONF[$_EXTKEY] = array (
   'author' => 'Nicole Cordes',
   'author_email' => 'typo3@cordes.co',
   'author_company' => 'CPS-IT GmbH',
-  'version' => '0.2.1',
-  'constraints' => 
+  'version' => '0.2.2',
+  'constraints' =>
   array (
-    'depends' => 
+    'depends' =>
     array (
       'typo3' => '7.5.0-8.4.99',
     ),
-    'conflicts' => 
+    'conflicts' =>
     array (
     ),
-    'suggests' => 
+    'suggests' =>
     array (
     ),
   ),

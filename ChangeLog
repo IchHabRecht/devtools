@@ -1,3 +1,7 @@
+2016-11-08         [RELEASE] Release of devtools 0.2.2 (Nicole Cordes)
+2016-11-08 b06a42c [TASK] Add composer.json (Nicole Cordes)
+2016-11-08 bb654b3 [TASK] Raise version compatibility to TYPO3 8.4.99 (Nicole Cordes)
+
 2016-03-16         [RELEASE] Release of devtools 0.2.1 (Nicole Cordes)
 2016-03-16 10f54ca [BUGFIX] Remove removed JavaScript functions (Nicole Cordes)
 
