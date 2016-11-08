@@ -1,0 +1,31 @@
+{
+  "name": "ichhabrecht/devtools",
+  "type": "typo3-cms-extension",
+  "description": "Adds nice developer tools to your TYPO3 installation",
+  "keywords": [
+    "TYPO3",
+    "developer",
+    "tools"
+  ],
+  "homepage": "https://github.com/IchHabRecht/TYPO3-devtools",
+  "authors": [
+    {
+      "name": "Nicole Cordes",
+      "email": "typo3@cordes.co",
+      "role": "Developer"
+    }
+  ],
+  "license": "GPL-2.0+",
+  "require": {
+    "typo3/cms": ">=7.5.0,<8.4.99"
+  },
+  "autoload": {
+    "psr-4": {
+      "IchHabRecht\\Devtools\\": "Classes/"
+    }
+  },
+  "replace": {
+    "devtools": "self.version",
+    "typo3-ter/devtools": "self.version"
+  }
+}
