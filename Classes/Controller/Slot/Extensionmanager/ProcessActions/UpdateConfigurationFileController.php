@@ -54,6 +54,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         $extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('extensionKey');
         if (!empty($extensionKey)) {
             $packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
+            $packageManager->scanAvailablePackages();
             $extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
             $_EXTKEY = $extensionKey;
             $EM_CONF = null;
