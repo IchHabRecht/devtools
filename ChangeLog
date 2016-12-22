@@ -1,3 +1,7 @@
+2016-12-22         [RELEASE] Release of devtools 0.2.3 (Nicole Cordes)
+2016-12-22 902e7e2 [TASK] Raise compatibility to TYPO3 8.5 (Nicole Cordes)
+2016-12-22 080aa8b [BUGFIX] Ensure packageManager knows all available packages (Nicole Cordes)
+
 2016-11-08         [RELEASE] Release of devtools 0.2.2 (Nicole Cordes)
 2016-11-08 b06a42c [TASK] Add composer.json (Nicole Cordes)
 2016-11-08 bb654b3 [TASK] Raise version compatibility to TYPO3 8.4.99 (Nicole Cordes)
