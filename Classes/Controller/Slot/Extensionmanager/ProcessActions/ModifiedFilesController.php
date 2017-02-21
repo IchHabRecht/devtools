@@ -32,12 +32,9 @@ use TYPO3\CMS\Core\Package\PackageManager;
  * Shows modified files for an extension
  *
  * @author Nicole Cordes <typo3@cordes.co>
- * @package TYPO3
- * @subpackage tx_devtools
  */
 class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController
 {
-
     /**
      * @var string
      */
@@ -77,7 +74,7 @@ class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\Abst
                 $changedFiles = array_diff($originalMd5HashArray, $currentMd5HashArray);
                 $changedFiles = array_filter($changedFiles);
 
-                $messageArray = array();
+                $messageArray = [];
                 if (!empty($changedFiles)) {
                     $messageArray[] = '<strong>' . $this->translate('changed_files') . ':</strong><br />' .
                         implode('<br />', array_keys($changedFiles));
@@ -97,7 +94,4 @@ class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\Abst
             }
         }
     }
-
 }
-
-?>

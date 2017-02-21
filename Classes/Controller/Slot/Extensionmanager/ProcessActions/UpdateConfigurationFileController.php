@@ -33,12 +33,9 @@ use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
  * Shows modified files for an extension
  *
  * @author Nicole Cordes <typo3@cordes.co>
- * @package TYPO3
- * @subpackage tx_devtools
  */
 class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController
 {
-
     /**
      * @var string
      */
@@ -72,10 +69,10 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
 
                 /** @var EmConfUtility $emConfUtility */
                 $emConfUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(EmConfUtility::class);
-                $extensionData = array(
+                $extensionData = [
                     'extKey' => $extensionKey,
                     'EM_CONF' => $EM_CONF[$extensionKey],
-                );
+                ];
                 $emConfContent = $emConfUtility->constructEmConf($extensionData);
                 \TYPO3\CMS\Core\Utility\GeneralUtility::writeFile($extensionConfigurationPath, $emConfContent);
             }
@@ -85,7 +82,4 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
             $ajaxObject->addContent('message', sprintf($this->translate('message'), $extensionKey));
         }
     }
-
 }
-
-?>
