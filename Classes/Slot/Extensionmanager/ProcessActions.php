@@ -37,12 +37,9 @@ use TYPO3\CMS\Core\Package\PackageManager;
  * Adds icons to extension manager list view
  *
  * @author Nicole Cordes <typo3@cordes.co>
- * @package TYPO3
- * @subpackage tx_devtools
  */
 class ProcessActions
 {
-
     /**
      * @var IconFactory
      */
@@ -111,9 +108,9 @@ class ProcessActions
         return '<a href="' .
         \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
             'DevtoolsModifiedFilesController::listFiles',
-            array(
+            [
                 'extensionKey' => $extension['key'],
-            )
+            ]
         ) . '" class="btn btn-default list-modified-files" title="' . htmlspecialchars($title) . '">' .
         $this->iconFactory->getIcon('status-dialog-warning', Icon::SIZE_SMALL)->render() . '</a>';
     }
@@ -137,9 +134,9 @@ class ProcessActions
                     return '<a href="' .
                     \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
                         'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
-                        array(
+                        [
                             'extensionKey' => $extension['key'],
-                        )
+                        ]
                     ) . '" class="btn btn-default update-configuration-file" title="' . $title . '">' .
                     $this->iconFactory->getIcon('actions-document-export-t3d', Icon::SIZE_SMALL)->render() . '</a>';
                 }
@@ -172,7 +169,4 @@ class ProcessActions
         );
         $this->isJavascriptIncluded = true;
     }
-
 }
-
-?>
