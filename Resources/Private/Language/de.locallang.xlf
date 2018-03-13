@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-08-13T22:46:35Z" product-name="devtools" target-language="de">
-		<header />
-		<body>
-			<trans-unit id="slot.error.title">
-				<source>Error</source>
-				<target state="translated">Fehler</target>
-			</trans-unit>
-			<trans-unit id="slot.error.message">
-				<source>An error occurred and the action wasn't processed completely.</source>
-				<target state="translated">Ein Fehler ist aufgetreten und die Anfrage konnte nicht vollständig ausgeführt werden.</target>
-			</trans-unit>
+    <file source-language="en" datatype="plaintext" original="messages" date="2014-08-13T22:46:35Z" product-name="devtools" target-language="de">
+        <header />
+        <body>
+            <trans-unit id="slot.error.title">
+                <source>Error</source>
+                <target state="translated">Fehler</target>
+            </trans-unit>
+            <trans-unit id="slot.error.message">
+                <source>An error occurred and the action wasn't processed completely.</source>
+                <target state="translated">Ein Fehler ist aufgetreten und die Anfrage konnte nicht vollständig ausgeführt werden.</target>
+            </trans-unit>
 
-			<trans-unit id="slot.extensionmanager.process_actions.modified_files.title">
-				<source>Show modified files</source>
-				<target state="translated">Geänderte Dateien anzeigen</target>
-			</trans-unit>
-			<trans-unit id="slot.extensionmanager.process_actions.modified_files.changed_files">
-				<source>Changed files</source>
-				<target state="translated">Geänderte Dateien</target>
-			</trans-unit>
-			<trans-unit id="slot.extensionmanager.process_actions.modified_files.new_files">
-				<source>New files</source>
-				<target state="translated">Neue Dateien</target>
-			</trans-unit>
-			<trans-unit id="slot.extensionmanager.process_actions.modified_files.removed_files">
-				<source>Removed files</source>
-				<target state="translated">Gelöschte Dateien</target>
-			</trans-unit>
+            <trans-unit id="slot.extensionmanager.process_actions.modified_files.title">
+                <source>Show modified files</source>
+                <target state="translated">Geänderte Dateien anzeigen</target>
+            </trans-unit>
+            <trans-unit id="slot.extensionmanager.process_actions.modified_files.changed_files">
+                <source>Changed files</source>
+                <target state="translated">Geänderte Dateien</target>
+            </trans-unit>
+            <trans-unit id="slot.extensionmanager.process_actions.modified_files.new_files">
+                <source>New files</source>
+                <target state="translated">Neue Dateien</target>
+            </trans-unit>
+            <trans-unit id="slot.extensionmanager.process_actions.modified_files.removed_files">
+                <source>Removed files</source>
+                <target state="translated">Gelöschte Dateien</target>
+            </trans-unit>
 
-			<trans-unit id="slot.extensionmanager.process_actions.update_configuration.title">
-				<source>Update ext_emconf.php file</source>
-				<target state="translated">ext_emconf.php Datei aktualisieren</target>
-			</trans-unit>
-			<trans-unit id="slot.extensionmanager.process_actions.update_configuration.message">
-				<source>The ext_emconf.php file of extension &quot;%1$s&quot; was updated with a cleaned up EM_CONF array.</source>
-				<target state="translated">Die ext_emconf.php Datei der Extension &quot;%1$s&quot; wurde mit einem neuen EM_CONF-Array aktualisiert.</target>
-			</trans-unit>
-		</body>
-	</file>
+            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.title">
+                <source>Update ext_emconf.php file</source>
+                <target state="translated">ext_emconf.php Datei aktualisieren</target>
+            </trans-unit>
+            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message">
+                <source>The ext_emconf.php file of extension &quot;%1$s&quot; was updated with a cleaned up EM_CONF array.</source>
+                <target state="translated">Die ext_emconf.php Datei der Extension &quot;%1$s&quot; wurde mit einem neuen EM_CONF-Array aktualisiert.</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

@@ -72,10 +72,10 @@ class ProcessActions
             $actions[] = $this->markModifiedExtension($extension);
             $actions[] = $this->updateExtensionConfigurationFile($extension);
         } else {
-            $actions[] = '<span class="btn btn-default disabled">' .
-                $this->iconFactory->getIcon('empty-empty', Icon::SIZE_SMALL)->render() . '</span>';
-            $actions[] = '<span class="btn btn-default disabled">' .
-                $this->iconFactory->getIcon('empty-empty', Icon::SIZE_SMALL)->render() . '</span>';
+            $actions[] = '<span class="btn btn-default disabled">'
+                . $this->iconFactory->getIcon('empty-empty', Icon::SIZE_SMALL)->render() . '</span>';
+            $actions[] = '<span class="btn btn-default disabled">'
+                . $this->iconFactory->getIcon('empty-empty', Icon::SIZE_SMALL)->render() . '</span>';
         }
 
         return false;
@@ -102,17 +102,18 @@ class ProcessActions
      */
     protected function markModifiedExtension($extension)
     {
-        $title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
-            ':slot.extensionmanager.process_actions.modified_files.title');
+        $title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+            . ':slot.extensionmanager.process_actions.modified_files.title');
 
-        return '<a href="' .
-        \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
-            'DevtoolsModifiedFilesController::listFiles',
-            [
-                'extensionKey' => $extension['key'],
-            ]
-        ) . '" class="btn btn-default list-modified-files" title="' . htmlspecialchars($title) . '">' .
-        $this->iconFactory->getIcon('status-dialog-warning', Icon::SIZE_SMALL)->render() . '</a>';
+        return '<a href="'
+            . \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+                'DevtoolsModifiedFilesController::listFiles',
+                [
+                    'extensionKey' => $extension['key'],
+                ]
+            )
+            . '" class="btn btn-default list-modified-files" title="' . htmlspecialchars($title) . '">'
+            . $this->iconFactory->getIcon('status-dialog-warning', Icon::SIZE_SMALL)->render() . '</a>';
     }
 
     /**
@@ -128,17 +129,18 @@ class ProcessActions
             if (!$package->isProtected() && $package->getPackageMetaData()->getPackageType() !== 'typo3-cms-framework') {
                 $configurationFile = $package->getPackagePath() . 'ext_emconf.php';
                 if (is_writable($configurationFile)) {
-                    $title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
-                        ':slot.extensionmanager.process_actions.update_configuration.title');
+                    $title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+                        . ':slot.extensionmanager.process_actions.update_configuration.title');
 
-                    return '<a href="' .
-                    \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
-                        'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
-                        [
-                            'extensionKey' => $extension['key'],
-                        ]
-                    ) . '" class="btn btn-default update-configuration-file" title="' . $title . '">' .
-                    $this->iconFactory->getIcon('actions-document-export-t3d', Icon::SIZE_SMALL)->render() . '</a>';
+                    return '<a href="'
+                        . \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+                            'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
+                            [
+                                'extensionKey' => $extension['key'],
+                            ]
+                        )
+                        . '" class="btn btn-default update-configuration-file" title="' . $title . '">'
+                        . $this->iconFactory->getIcon('actions-document-export-t3d', Icon::SIZE_SMALL)->render() . '</a>';
                 }
             }
         } catch (UnknownPackageException $e) {
@@ -159,13 +161,13 @@ class ProcessActions
         );
         $pageRenderer->addInlineLanguageLabel(
             'devtools.error.title',
-            $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
-                ':slot.error.title')
+            $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+                . ':slot.error.title')
         );
         $pageRenderer->addInlineLanguageLabel(
             'devtools.error.message',
-            $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE .
-                ':slot.error.message')
+            $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+                . ':slot.error.message')
         );
         $this->isJavascriptIncluded = true;
     }
