@@ -25,13 +25,16 @@ namespace IchHabRecht\Devtools\Slot\Extensionmanager;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use IchHabRecht\Devtools\Controller\Slot\AbstractSlotController;
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Package\Exception\UnknownPackageException;
-use TYPO3\CMS\Core\Package\Package;
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Adds icons to extension manager list view
@@ -102,11 +105,11 @@ class ProcessActions
      */
     protected function markModifiedExtension($extension)
     {
-        $title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+        $title = $GLOBALS['LANG']->sL(AbstractSlotController::LANGUAGE_FILE
             . ':slot.extensionmanager.process_actions.modified_files.title');
 
         return '<a href="'
-            . \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+            . BackendUtility::getAjaxUrl(
                 'DevtoolsModifiedFilesController::listFiles',
                 [
                     'extensionKey' => $extension['key'],
@@ -123,17 +126,16 @@ class ProcessActions
     protected function updateExtensionConfigurationFile($extension)
     {
         try {
-            $packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
-            /** @var Package $package */
+            $packageManager = GeneralUtility::makeInstance(PackageManager::class);
             $package = $packageManager->getPackage($extension['key']);
             if (!$package->isProtected() && $package->getPackageMetaData()->getPackageType() !== 'typo3-cms-framework') {
                 $configurationFile = $package->getPackagePath() . 'ext_emconf.php';
                 if (is_writable($configurationFile)) {
-                    $title = $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+                    $title = $GLOBALS['LANG']->sL(AbstractSlotController::LANGUAGE_FILE
                         . ':slot.extensionmanager.process_actions.update_configuration.title');
 
                     return '<a href="'
-                        . \TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl(
+                        . BackendUtility::getAjaxUrl(
                             'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
                             [
                                 'extensionKey' => $extension['key'],
@@ -154,19 +156,18 @@ class ProcessActions
      */
     protected function includeJavascript()
     {
-        /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
-        $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
+        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->addJsFile(
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('devtools') . 'Resources/Public/JavaScript/bindActions.js'
+            ExtensionManagementUtility::extRelPath('devtools') . 'Resources/Public/JavaScript/bindActions.js'
         );
         $pageRenderer->addInlineLanguageLabel(
             'devtools.error.title',
-            $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+            $GLOBALS['LANG']->sL(AbstractSlotController::LANGUAGE_FILE
                 . ':slot.error.title')
         );
         $pageRenderer->addInlineLanguageLabel(
             'devtools.error.message',
-            $GLOBALS['LANG']->sL(\IchHabRecht\Devtools\Controller\Slot\AbstractSlotController::LANGUAGE_FILE
+            $GLOBALS['LANG']->sL(AbstractSlotController::LANGUAGE_FILE
                 . ':slot.error.message')
         );
         $this->isJavascriptIncluded = true;
