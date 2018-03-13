@@ -155,7 +155,7 @@ class ProcessActions
         /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
         $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
         $pageRenderer->addJsFile(
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('devtools') . 'Resources/Public/Javascript/bindActions.js'
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('devtools') . 'Resources/Public/JavaScript/bindActions.js'
         );
         $pageRenderer->addInlineLanguageLabel(
             'devtools.error.title',
