@@ -33,7 +33,6 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Package\Exception\UnknownPackageException;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -157,9 +156,7 @@ class ProcessActions
     protected function includeJavascript()
     {
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $pageRenderer->addJsFile(
-            ExtensionManagementUtility::extRelPath('devtools') . 'Resources/Public/JavaScript/bindActions.js'
-        );
+        $pageRenderer->loadRequireJsModule('TYPO3/CMS/Devtools/Devtools');
         $pageRenderer->addInlineLanguageLabel(
             'devtools.error.title',
             $GLOBALS['LANG']->sL(AbstractSlotController::LANGUAGE_FILE
