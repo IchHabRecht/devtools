@@ -8,7 +8,7 @@ if (TYPO3_MODE === 'BE') {
         'TYPO3\\CMS\\Extensionmanager\\ViewHelpers\\ProcessAvailableActionsViewHelper',
         'processActions',
         'IchHabRecht\\Devtools\\Slot\\Extensionmanager\\ProcessActions',
-        'processActions'
+        'addActions'
     );
 
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler(

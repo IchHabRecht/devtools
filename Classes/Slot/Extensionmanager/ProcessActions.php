@@ -65,7 +65,7 @@ class ProcessActions
      * @param array $actions
      * @return bool
      */
-    public function processActions($extension, &$actions)
+    public function addActions($extension, &$actions)
     {
         if ($this->isExtensionModified($extension)) {
             if (!$this->isJavascriptIncluded) {
@@ -145,6 +145,7 @@ class ProcessActions
                 }
             }
         } catch (UnknownPackageException $e) {
+            return '';
         }
 
         return '';

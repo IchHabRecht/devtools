@@ -25,15 +25,18 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Core\Bootstrap;
+use IchHabRecht\Devtools\Controller\Slot\AbstractSlotController;
+use IchHabRecht\Devtools\Utility\ExtensionUtility;
+use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Shows modified files for an extension
  *
  * @author Nicole Cordes <typo3@cordes.co>
  */
-class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController
+class ModifiedFilesController extends AbstractSlotController
 {
     /**
      * @var string
@@ -42,56 +45,54 @@ class ModifiedFilesController extends \IchHabRecht\Devtools\Controller\Slot\Abst
 
     /**
      * @param array $ajaxParams
-     * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
-     * @return string
+     * @param AjaxRequestHandler $ajaxObject
      */
     public function listFiles($ajaxParams, $ajaxObject)
     {
-        $extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('extensionKey');
-        if (!empty($extensionKey)) {
-            $packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
-            $extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
-            $_EXTKEY = $extensionKey;
-            $EM_CONF = null;
-            $extension = null;
-            if (file_exists($extensionConfigurationPath)) {
-                include $extensionConfigurationPath;
-                if (is_array($EM_CONF[$_EXTKEY])) {
-                    $extension = $EM_CONF[$_EXTKEY];
-                }
-            }
-
-            if (!empty($extension['_md5_values_when_last_written'])) {
-                $originalMd5HashArray = (array)unserialize($extension['_md5_values_when_last_written']);
-                $originalFileArray = array_keys($originalMd5HashArray);
-                $currentMd5HashArray = \IchHabRecht\Devtools\Utility\ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
-                $currentFileArray = array_keys($currentMd5HashArray);
-
-                $removedFiles = array_diff($originalFileArray, $currentFileArray);
-                $removedFiles = array_filter($removedFiles);
-                $newFiles = array_diff($currentFileArray, $originalFileArray);
-                $newFiles = array_filter($newFiles);
-                $changedFiles = array_diff($originalMd5HashArray, $currentMd5HashArray);
-                $changedFiles = array_filter($changedFiles);
-
-                $messageArray = [];
-                if (!empty($changedFiles)) {
-                    $messageArray[] = '<strong>' . $this->translate('changed_files') . ':</strong><br />' .
-                        implode('<br />', array_keys($changedFiles));
-                }
-                if (!empty($newFiles)) {
-                    $messageArray[] = '<strong>' . $this->translate('new_files') . ':</strong><br />' .
-                        implode('<br />', $newFiles);
-                }
-                if (!empty($removedFiles)) {
-                    $messageArray[] = '<strong>' . $this->translate('removed_files') . ':</strong><br />' .
-                        implode('<br />', $removedFiles);
-                }
-
-                $ajaxObject->setContentFormat('json');
-                $ajaxObject->addContent('title', $this->translate('title'));
-                $ajaxObject->addContent('message', implode('<br /><br />', $messageArray));
-            }
+        $extensionKey = GeneralUtility::_GP('extensionKey');
+        if (empty($extensionKey)) {
+            return;
         }
+
+        $packageManager = GeneralUtility::makeInstance(PackageManager::class);
+        $extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
+        $EM_CONF = null;
+        if (file_exists($extensionConfigurationPath)) {
+            $_EXTKEY = $extensionKey;
+            include $extensionConfigurationPath;
+        }
+
+        if ($EM_CONF === null || empty($EM_CONF[$extensionKey])) {
+            return;
+        }
+        $originalMd5HashArray = (array)unserialize($EM_CONF[$extensionKey]['_md5_values_when_last_written'], ['allowed_classes' => false]);
+        $originalFileArray = array_keys($originalMd5HashArray);
+        $currentMd5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
+        $currentFileArray = array_keys($currentMd5HashArray);
+
+        $removedFiles = array_diff($originalFileArray, $currentFileArray);
+        $removedFiles = array_filter($removedFiles);
+        $newFiles = array_diff($currentFileArray, $originalFileArray);
+        $newFiles = array_filter($newFiles);
+        $changedFiles = array_diff($originalMd5HashArray, $currentMd5HashArray);
+        $changedFiles = array_filter($changedFiles);
+
+        $messageArray = [];
+        if (!empty($changedFiles)) {
+            $messageArray[] = '<strong>' . $this->translate('changed_files') . ':</strong><br />' .
+                implode('<br />', array_keys($changedFiles));
+        }
+        if (!empty($newFiles)) {
+            $messageArray[] = '<strong>' . $this->translate('new_files') . ':</strong><br />' .
+                implode('<br />', $newFiles);
+        }
+        if (!empty($removedFiles)) {
+            $messageArray[] = '<strong>' . $this->translate('removed_files') . ':</strong><br />' .
+                implode('<br />', $removedFiles);
+        }
+
+        $ajaxObject->setContentFormat('json');
+        $ajaxObject->addContent('title', $this->translate('title'));
+        $ajaxObject->addContent('message', implode('<br /><br />', $messageArray));
     }
 }
