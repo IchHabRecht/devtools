@@ -26,12 +26,24 @@ namespace IchHabRecht\Devtools\Command;
  ***************************************************************/
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 class ExtensionConfigurationCommandController extends CommandController
 {
-    protected $languageFile = 'LLL:EXT:devtools/Resources/Private/Language/locallang.xlf';
+    /**
+     * @var string
+     */
+    protected $extensionKey = '';
+
+    /**
+     * @var ExtensionUtility
+     */
+    protected $extensionUtility;
+
+    public function __construct(ExtensionUtility $extensionUtility)
+    {
+        $this->extensionUtility = $extensionUtility;
+    }
 
     /**
      * @param string $extensionKey
@@ -39,16 +51,25 @@ class ExtensionConfigurationCommandController extends CommandController
      */
     public function updateCommand($extensionKey)
     {
-        $extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
-        $updated = $extensionUtility->updateConfiguration($extensionKey);
+        $this->extensionKey = $extensionKey;
 
-        $translationKey = 'slot.extensionmanager.process_actions.update_configuration.message';
-        if (!$updated) {
-            $translationKey = 'slot.error.message';
+        $success = $this->extensionUtility->updateConfiguration($extensionKey);
+
+        return $this->getOutputMessage($success);
+    }
+
+    /**
+     * @param $success
+     * @return string
+     */
+    private function getOutputMessage($success)
+    {
+        $languageFile = 'LLL:EXT:devtools/Resources/Private/Language/locallang.xlf';
+        $translationKey = 'command.extensionconfiguration.update.success';
+        if (!$success) {
+            $translationKey = 'command.extensionconfiguration.update.error';
         }
 
-        $output = sprintf($GLOBALS['LANG']->sL($this->languageFile . ':' . $translationKey . ''), $extensionKey);
-
-        return $output;
+        return sprintf($GLOBALS['LANG']->sL($languageFile . ':' . $translationKey), $this->extensionKey);
     }
 }
