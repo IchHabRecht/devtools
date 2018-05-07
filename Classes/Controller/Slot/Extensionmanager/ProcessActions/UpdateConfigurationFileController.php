@@ -55,8 +55,12 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         $extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
         $updated = $extensionUtility->updateConfiguration($extensionKey);
 
+        if (!$updated) {
+            return;
+        }
+
         $ajaxObject->addContent('title', $this->translate('title'));
-        $ajaxObject->addContent('message', sprintf($this->translate('message', $updated ? null : 'error'), $extensionKey));
+        $ajaxObject->addContent('message', sprintf($this->translate('message'), $extensionKey));
         $ajaxObject->setContentFormat('json');
     }
 }
