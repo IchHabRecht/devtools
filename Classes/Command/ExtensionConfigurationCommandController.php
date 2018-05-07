@@ -31,7 +31,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 class ExtensionConfigurationCommandController extends CommandController
 {
-    const LANGUAGE_FILE = 'LLL:EXT:devtools/Resources/Private/Language/locallang.xlf';
+    protected $languageFile = 'LLL:EXT:devtools/Resources/Private/Language/locallang.xlf';
 
     /**
      * @param string $extensionKey
@@ -43,10 +43,10 @@ class ExtensionConfigurationCommandController extends CommandController
         $updated = $extensionUtility->updateConfiguration($extensionKey);
 
         if ($updated) {
-            $output = $GLOBALS['LANG']->sL(static::LANGUAGE_FILE .
+            $output = $GLOBALS['LANG']->sL($this->languageFile .
                 ':slot.extensionmanager.process_actions.update_configuration.message');
         } else {
-            $output = $GLOBALS['LANG']->sL(static::LANGUAGE_FILE .
+            $output = $GLOBALS['LANG']->sL($this->languageFile .
                 ':slot.error.message');
         }
 
