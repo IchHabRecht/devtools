@@ -44,11 +44,15 @@ abstract class AbstractSlotController
 
     /**
      * @param string $key
+     * @param string $translationPrefix
      * @return string
      */
-    protected function translate($key)
+    protected function translate($key, $translationPrefix = '')
     {
-        return $GLOBALS['LANG']->sL(static::LANGUAGE_FILE .
-            ':slot.' . $this->translationPrefix . '.' . $key);
+        if (empty($translationPrefix)) {
+            $translationPrefix = $this->translationPrefix;
+        }
+
+        return $GLOBALS['LANG']->sL(static::LANGUAGE_FILE . ':slot.' . $translationPrefix . '.' . $key);
     }
 }

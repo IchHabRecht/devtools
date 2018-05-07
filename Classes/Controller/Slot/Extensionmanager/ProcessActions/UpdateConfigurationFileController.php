@@ -43,8 +43,6 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
     /**
      * @param array $ajaxParams
      * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Exception
      * @return string
      */
     public function updateConfigurationFile($ajaxParams, $ajaxObject)
@@ -57,10 +55,8 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         $extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
         $updated = $extensionUtility->updateConfiguration($extensionKey);
 
-        if ($updated) {
-            $ajaxObject->addContent('title', $this->translate('title'));
-            $ajaxObject->addContent('message', sprintf($this->translate('message'), $extensionKey));
-            $ajaxObject->setContentFormat('json');
-        }
+        $ajaxObject->addContent('title', $this->translate('title'));
+        $ajaxObject->addContent('message', sprintf($this->translate('message', $updated ? null : 'error'), $extensionKey));
+        $ajaxObject->setContentFormat('json');
     }
 }
