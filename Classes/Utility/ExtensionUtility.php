@@ -1,5 +1,4 @@
 <?php
-
 namespace IchHabRecht\Devtools\Utility;
 
 /***************************************************************
@@ -69,9 +68,9 @@ final class ExtensionUtility
 
     /**
      * @param $extensionKey
-     * @return bool
      * @throws \TYPO3\CMS\Core\Exception
      * @throws \InvalidArgumentException
+     * @return bool
      */
     public function updateConfiguration($extensionKey)
     {

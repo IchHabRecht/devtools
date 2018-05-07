@@ -1,5 +1,4 @@
 <?php
-
 namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
 
 /***************************************************************
@@ -27,10 +26,7 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
  ***************************************************************/
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
 
 /**
  * Shows modified files for an extension
@@ -47,9 +43,9 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
     /**
      * @param array $ajaxParams
      * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
-     * @return string
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Exception
+     * @return string
      */
     public function updateConfigurationFile($ajaxParams, $ajaxObject)
     {

@@ -23,7 +23,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 namespace IchHabRecht\Devtools\Command;
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
@@ -36,9 +35,9 @@ class ExtensionConfigurationCommandController extends CommandController
 
     /**
      * @param string $extensionKey
-     * @return string
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Exception
+     * @return string
      */
     public function updateCommand($extensionKey)
     {
