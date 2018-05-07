@@ -68,8 +68,6 @@ final class ExtensionUtility
 
     /**
      * @param $extensionKey
-     * @throws \TYPO3\CMS\Core\Exception
-     * @throws \InvalidArgumentException
      * @return bool
      */
     public function updateConfiguration($extensionKey)

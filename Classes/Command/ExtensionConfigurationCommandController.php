@@ -1,4 +1,5 @@
 <?php
+namespace IchHabRecht\Devtools\Command;
 
 /***************************************************************
  *  Copyright notice
@@ -23,7 +24,6 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-namespace IchHabRecht\Devtools\Command;
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -35,8 +35,6 @@ class ExtensionConfigurationCommandController extends CommandController
 
     /**
      * @param string $extensionKey
-     * @throws \InvalidArgumentException
-     * @throws \TYPO3\CMS\Core\Exception
      * @return string
      */
     public function updateCommand($extensionKey)
