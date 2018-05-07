@@ -42,13 +42,12 @@ class ExtensionConfigurationCommandController extends CommandController
         $extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
         $updated = $extensionUtility->updateConfiguration($extensionKey);
 
-        if ($updated) {
-            $output = $GLOBALS['LANG']->sL($this->languageFile .
-                ':slot.extensionmanager.process_actions.update_configuration.message');
-        } else {
-            $output = $GLOBALS['LANG']->sL($this->languageFile .
-                ':slot.error.message');
+        $translationKey = 'slot.extensionmanager.process_actions.update_configuration.message';
+        if (!$updated) {
+            $translationKey = 'slot.error.message';
         }
+
+        $output = sprintf($GLOBALS['LANG']->sL($this->languageFile . ':' . $translationKey . ''), $extensionKey);
 
         return $output;
     }
