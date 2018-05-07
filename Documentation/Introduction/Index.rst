@@ -13,7 +13,9 @@ The extension offers two new actions for extensions within the extension manager
 
 If any file in an extension was changed you will get a visible notification. On an one-click event a list with modified, new and removed files is shown.
 
-For each modified extension an additional action is displayed which provides the rewrite of  the ext_emconf.php file.
+For each modified extension an additional action is displayed which provides the rewrite of the ext_emconf.php file.
+
+ext_emconf.php files can also be updated via cli: cli_dispatch.phpsh extbase extensionconfiguration:update my_extension
 
 .. figure:: ../Images/list_view_icons.jpg
 	:width: 116px

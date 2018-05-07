@@ -1,11 +1,9 @@
 <?php
 
-namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
-
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Nicole Cordes <typo3@cordes.co>, CPS-IT GmbH
+ *  (c) 2018 Sven Friese <sven@widerheim.de>, familie redlich digital GmbH
  *
  *  All rights reserved
  *
@@ -26,45 +24,35 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace IchHabRecht\Devtools\Command;
+
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
-/**
- * Shows modified files for an extension
- *
- * @author Nicole Cordes <typo3@cordes.co>
- */
-class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController
+class ExtensionConfigurationCommandController extends CommandController
 {
-    /**
-     * @var string
-     */
-    protected $translationPrefix = 'extensionmanager.process_actions.update_configuration';
+    const LANGUAGE_FILE = 'LLL:EXT:devtools/Resources/Private/Language/locallang.xlf';
 
     /**
-     * @param array $ajaxParams
-     * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
+     * @param string $extensionKey
      * @return string
      * @throws \InvalidArgumentException
      * @throws \TYPO3\CMS\Core\Exception
      */
-    public function updateConfigurationFile($ajaxParams, $ajaxObject)
+    public function updateCommand($extensionKey)
     {
-        $extensionKey = GeneralUtility::_GP('extensionKey');
-        if (empty($extensionKey)) {
-            return;
-        }
-
         $extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
         $updated = $extensionUtility->updateConfiguration($extensionKey);
 
         if ($updated) {
-            $ajaxObject->addContent('title', $this->translate('title'));
-            $ajaxObject->addContent('message', sprintf($this->translate('message'), $extensionKey));
-            $ajaxObject->setContentFormat('json');
+            $output = $GLOBALS['LANG']->sL(static::LANGUAGE_FILE .
+                ':slot.extensionmanager.process_actions.update_configuration.message');
+        } else {
+            $output = $GLOBALS['LANG']->sL(static::LANGUAGE_FILE .
+                ':slot.error.message');
         }
+
+        return $output;
     }
 }

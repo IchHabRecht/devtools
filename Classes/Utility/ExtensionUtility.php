@@ -1,4 +1,5 @@
 <?php
+
 namespace IchHabRecht\Devtools\Utility;
 
 /***************************************************************
@@ -24,6 +25,11 @@ namespace IchHabRecht\Devtools\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
 
 /**
  * Functions for extension management
@@ -59,5 +65,40 @@ final class ExtensionUtility
         }
 
         return $md5HashArray;
+    }
+
+    /**
+     * @param $extensionKey
+     * @return bool
+     * @throws \TYPO3\CMS\Core\Exception
+     * @throws \InvalidArgumentException
+     */
+    public function updateConfiguration($extensionKey)
+    {
+        $packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
+        $packageManager->scanAvailablePackages();
+        $extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
+        $EM_CONF = null;
+        if (file_exists($extensionConfigurationPath)) {
+            $_EXTKEY = $extensionKey;
+            include $extensionConfigurationPath;
+        }
+
+        if ($EM_CONF === null || empty($EM_CONF[$extensionKey])) {
+            return false;
+        }
+
+        $currentMd5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
+        $EM_CONF[$extensionKey]['_md5_values_when_last_written'] = serialize($currentMd5HashArray);
+
+        $emConfUtility = GeneralUtility::makeInstance(EmConfUtility::class);
+        $extensionData = [
+            'extKey' => $extensionKey,
+            'EM_CONF' => $EM_CONF[$extensionKey],
+        ];
+        $emConfContent = $emConfUtility->constructEmConf($extensionData);
+        GeneralUtility::writeFile($extensionConfigurationPath, $emConfContent);
+
+        return true;
     }
 }
