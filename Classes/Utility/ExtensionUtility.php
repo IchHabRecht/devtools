@@ -67,7 +67,7 @@ final class ExtensionUtility
     }
 
     /**
-     * @param $extensionKey
+     * @param string $extensionKey
      * @return bool
      */
     public function updateConfiguration($extensionKey)
