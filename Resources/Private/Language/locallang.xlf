@@ -26,13 +26,10 @@
             <trans-unit id="slot.extensionmanager.process_actions.update_configuration.title">
                 <source>Update ext_emconf.php file</source>
             </trans-unit>
-            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message">
+            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message.success">
                 <source>The ext_emconf.php file of extension &quot;%1$s&quot; was updated with a cleaned up EM_CONF array.</source>
             </trans-unit>
-            <trans-unit id="command.extensionconfiguration.update.success">
-                <source>The ext_emconf.php file of extension &quot;%1$s&quot; was updated with a cleaned up EM_CONF array.</source>
-            </trans-unit>
-            <trans-unit id="command.extensionconfiguration.update.error">
+            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message.error">
                 <source>Could not read the configuration for extension &quot;%1$s&quot;. No changes written.</source>
             </trans-unit>
         </body>

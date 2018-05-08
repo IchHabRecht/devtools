@@ -59,17 +59,15 @@ class ExtensionConfigurationCommandController extends CommandController
     }
 
     /**
-     * @param $success
+     * @param bool $success
      * @return string
      */
     private function getOutputMessage($success)
     {
         $languageFile = 'LLL:EXT:devtools/Resources/Private/Language/locallang.xlf';
-        $translationKey = 'command.extensionconfiguration.update.success';
-        if (!$success) {
-            $translationKey = 'command.extensionconfiguration.update.error';
-        }
+        $translationPrefix = 'slot.extensionmanager.process_actions.update_configuration.message.';
+        $translationKey = $success ? 'success' : 'error';
 
-        return sprintf($GLOBALS['LANG']->sL($languageFile . ':' . $translationKey), $this->extensionKey);
+        return sprintf($GLOBALS['LANG']->sL($languageFile . ':' . $translationPrefix . $translationKey), $this->extensionKey);
     }
 }

@@ -60,7 +60,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         }
 
         $ajaxObject->addContent('title', $this->translate('title'));
-        $ajaxObject->addContent('message', sprintf($this->translate('message'), $extensionKey));
+        $ajaxObject->addContent('message', sprintf($this->translate('message.success'), $extensionKey));
         $ajaxObject->setContentFormat('json');
     }
 }
