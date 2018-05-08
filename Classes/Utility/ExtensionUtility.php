@@ -25,7 +25,6 @@ namespace IchHabRecht\Devtools\Utility;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
@@ -38,16 +37,24 @@ use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
 final class ExtensionUtility
 {
     /**
+     * @var PackageManager
+     */
+    protected $packageManager;
+
+    public function __construct(PackageManager $packageManager = null)
+    {
+        $this->packageManager = $packageManager ?: GeneralUtility::makeInstance(PackageManager::class);
+    }
+
+    /**
      * @param string $extensionKey
      * @return array
      */
-    public static function getMd5HashArrayForExtension($extensionKey)
+    public function getMd5HashArrayForExtension($extensionKey)
     {
         $md5HashArray = [];
-        /** @var \TYPO3\CMS\Core\Package\PackageManager $packageManager */
-        $packageManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Package\\PackageManager');
-        $extensionPath = $packageManager->getPackage($extensionKey)->getPackagePath();
-        $filesArray = \TYPO3\CMS\Core\Utility\GeneralUtility::getAllFilesAndFoldersInPath(
+        $extensionPath = $this->packageManager->getPackage($extensionKey)->getPackagePath();
+        $filesArray = GeneralUtility::getAllFilesAndFoldersInPath(
             [],
             $extensionPath,
             '',
@@ -58,7 +65,7 @@ final class ExtensionUtility
         foreach ($filesArray as $file) {
             $relativeFileName = substr($file, strlen($extensionPath));
             if ($relativeFileName !== 'ext_emconf.php') {
-                $fileContent = \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl($file);
+                $fileContent = GeneralUtility::getUrl($file);
                 $md5HashArray[$relativeFileName] = substr(md5($fileContent), 0, 4);
             }
         }
@@ -72,9 +79,8 @@ final class ExtensionUtility
      */
     public function updateConfiguration($extensionKey)
     {
-        $packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
-        $packageManager->scanAvailablePackages();
-        $extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
+        $this->packageManager->scanAvailablePackages();
+        $extensionConfigurationPath = $this->packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
         $EM_CONF = null;
         if (file_exists($extensionConfigurationPath)) {
             $_EXTKEY = $extensionKey;
@@ -85,7 +91,7 @@ final class ExtensionUtility
             return false;
         }
 
-        $currentMd5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
+        $currentMd5HashArray = $this->getMd5HashArrayForExtension($extensionKey);
         $EM_CONF[$extensionKey]['_md5_values_when_last_written'] = serialize($currentMd5HashArray);
 
         $emConfUtility = GeneralUtility::makeInstance(EmConfUtility::class);

@@ -43,6 +43,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ProcessActions
 {
     /**
+     * @var ExtensionUtility
+     */
+    private $extensionUtility;
+
+    /**
      * @var IconFactory
      */
     protected $iconFactory;
@@ -52,11 +57,9 @@ class ProcessActions
      */
     protected $isJavascriptIncluded = false;
 
-    /**
-     * @param IconFactory $iconFactory
-     */
-    public function injectIconFactory(IconFactory $iconFactory)
+    public function __construct(ExtensionUtility $extensionUtility, IconFactory $iconFactory)
     {
+        $this->extensionUtility = $extensionUtility;
         $this->iconFactory = $iconFactory;
     }
 
@@ -90,7 +93,7 @@ class ProcessActions
     protected function isExtensionModified($extension)
     {
         if (!empty($extension['_md5_values_when_last_written'])) {
-            $md5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extension['key']);
+            $md5HashArray = $this->extensionUtility->getMd5HashArrayForExtension($extension['key']);
 
             return $extension['_md5_values_when_last_written'] !== serialize($md5HashArray);
         }

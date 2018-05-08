@@ -45,9 +45,9 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
      */
     protected $extensionUtility;
 
-    public function __construct()
+    public function __construct(ExtensionUtility $extensionUtility = null)
     {
-        $this->extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
+        $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
     }
 
     /**
