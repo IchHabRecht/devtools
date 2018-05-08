@@ -41,6 +41,16 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
     protected $translationPrefix = 'extensionmanager.process_actions.update_configuration';
 
     /**
+     * @var ExtensionUtility
+     */
+    protected $extensionUtility;
+
+    public function __construct()
+    {
+        $this->extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
+    }
+
+    /**
      * @param array $ajaxParams
      * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
      * @return string
@@ -52,8 +62,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
             return;
         }
 
-        $extensionUtility = GeneralUtility::makeInstance(ExtensionUtility::class);
-        $updated = $extensionUtility->updateConfiguration($extensionKey);
+        $updated = $this->extensionUtility->updateConfiguration($extensionKey);
 
         if (!$updated) {
             return;
