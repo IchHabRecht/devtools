@@ -39,7 +39,7 @@ final class ExtensionUtility
     /**
      * @var PackageManager
      */
-    protected $packageManager;
+    private $packageManager;
 
     public function __construct(PackageManager $packageManager = null)
     {
