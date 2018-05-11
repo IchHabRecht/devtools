@@ -49,7 +49,6 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
     /**
      * @param array $ajaxParams
      * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
-     * @return string
      */
     public function updateConfigurationFile($ajaxParams, $ajaxObject)
     {
