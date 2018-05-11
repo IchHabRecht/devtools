@@ -36,11 +36,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController
 {
     /**
-     * @var string
-     */
-    protected $translationPrefix = 'extensionmanager.process_actions.update_configuration';
-
-    /**
      * @var ExtensionUtility
      */
     protected $extensionUtility;
@@ -48,6 +43,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
     public function __construct(ExtensionUtility $extensionUtility = null)
     {
         $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
+        $this->translationPrefix = 'extensionmanager.process_actions.update_configuration';
     }
 
     /**
