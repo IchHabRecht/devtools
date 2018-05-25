@@ -43,10 +43,14 @@ class ModifiedFilesController extends AbstractSlotController
      */
     protected $extensionUtility;
 
+    /**
+     * @var string
+     */
+    protected $translationPrefix = 'extensionmanager.process_actions.modified_files';
+
     public function __construct(ExtensionUtility $extensionUtility = null)
     {
         $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
-        $this->translationPrefix = 'extensionmanager.process_actions.modified_files';
     }
 
     /**

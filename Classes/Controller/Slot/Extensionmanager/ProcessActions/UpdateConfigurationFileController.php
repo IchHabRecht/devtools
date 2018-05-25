@@ -40,10 +40,14 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
      */
     protected $extensionUtility;
 
+    /**
+     * @var string
+     */
+    protected $translationPrefix = 'extensionmanager.process_actions.update_configuration';
+
     public function __construct(ExtensionUtility $extensionUtility = null)
     {
         $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
-        $this->translationPrefix = 'extensionmanager.process_actions.update_configuration';
     }
 
     /**
