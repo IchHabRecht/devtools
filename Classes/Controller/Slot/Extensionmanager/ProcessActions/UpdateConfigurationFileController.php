@@ -26,10 +26,7 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
  ***************************************************************/
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
 
 /**
  * Shows modified files for an extension
@@ -39,14 +36,23 @@ use TYPO3\CMS\Extensionmanager\Utility\EmConfUtility;
 class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller\Slot\AbstractSlotController
 {
     /**
+     * @var ExtensionUtility
+     */
+    protected $extensionUtility;
+
+    /**
      * @var string
      */
     protected $translationPrefix = 'extensionmanager.process_actions.update_configuration';
 
+    public function __construct(ExtensionUtility $extensionUtility = null)
+    {
+        $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
+    }
+
     /**
      * @param array $ajaxParams
      * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
-     * @return string
      */
     public function updateConfigurationFile($ajaxParams, $ajaxObject)
     {
@@ -54,32 +60,15 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         if (empty($extensionKey)) {
             return;
         }
-        $packageManager = Bootstrap::getInstance()->getEarlyInstance(PackageManager::class);
-        $packageManager->scanAvailablePackages();
-        $extensionConfigurationPath = $packageManager->getPackage($extensionKey)->getPackagePath() . 'ext_emconf.php';
-        $EM_CONF = null;
-        if (file_exists($extensionConfigurationPath)) {
-            $_EXTKEY = $extensionKey;
-            include $extensionConfigurationPath;
-        }
 
-        if ($EM_CONF === null || empty($EM_CONF[$extensionKey])) {
+        $updated = $this->extensionUtility->updateConfiguration($extensionKey);
+
+        if (!$updated) {
             return;
         }
 
-        $currentMd5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
-        $EM_CONF[$extensionKey]['_md5_values_when_last_written'] = serialize($currentMd5HashArray);
-
-        $emConfUtility = GeneralUtility::makeInstance(EmConfUtility::class);
-        $extensionData = [
-            'extKey' => $extensionKey,
-            'EM_CONF' => $EM_CONF[$extensionKey],
-        ];
-        $emConfContent = $emConfUtility->constructEmConf($extensionData);
-        GeneralUtility::writeFile($extensionConfigurationPath, $emConfContent);
-
         $ajaxObject->setContentFormat('json');
         $ajaxObject->addContent('title', $this->translate('title'));
-        $ajaxObject->addContent('message', sprintf($this->translate('message'), $extensionKey));
+        $ajaxObject->addContent('message', sprintf($this->translate('message.success'), $extensionKey));
     }
 }

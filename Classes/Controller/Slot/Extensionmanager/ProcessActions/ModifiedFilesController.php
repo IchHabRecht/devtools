@@ -39,9 +39,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ModifiedFilesController extends AbstractSlotController
 {
     /**
+     * @var ExtensionUtility
+     */
+    protected $extensionUtility;
+
+    /**
      * @var string
      */
     protected $translationPrefix = 'extensionmanager.process_actions.modified_files';
+
+    public function __construct(ExtensionUtility $extensionUtility = null)
+    {
+        $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
+    }
 
     /**
      * @param array $ajaxParams
@@ -67,7 +77,7 @@ class ModifiedFilesController extends AbstractSlotController
         }
         $originalMd5HashArray = (array)unserialize($EM_CONF[$extensionKey]['_md5_values_when_last_written'], ['allowed_classes' => false]);
         $originalFileArray = array_keys($originalMd5HashArray);
-        $currentMd5HashArray = ExtensionUtility::getMd5HashArrayForExtension($extensionKey);
+        $currentMd5HashArray = $this->extensionUtility->getMd5HashArrayForExtension($extensionKey);
         $currentFileArray = array_keys($currentMd5HashArray);
 
         $removedFiles = array_diff($originalFileArray, $currentFileArray);

@@ -19,4 +19,6 @@ if (TYPO3_MODE === 'BE') {
         'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
         'IchHabRecht\\Devtools\\Controller\\Slot\\Extensionmanager\\ProcessActions\\UpdateConfigurationFileController->updateConfigurationFile'
     );
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers']['devtools'] =
+        \IchHabRecht\Devtools\Command\ExtensionConfigurationCommandController::class;
 }

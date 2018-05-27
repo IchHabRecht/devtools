@@ -33,9 +33,13 @@
                 <source>Update ext_emconf.php file</source>
                 <target state="translated">ext_emconf.php Datei aktualisieren</target>
             </trans-unit>
-            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message">
+            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message.success">
                 <source>The ext_emconf.php file of extension &quot;%1$s&quot; was updated with a cleaned up EM_CONF array.</source>
                 <target state="translated">Die ext_emconf.php Datei der Extension &quot;%1$s&quot; wurde mit einem neuen EM_CONF-Array aktualisiert.</target>
+            </trans-unit>
+            <trans-unit id="slot.extensionmanager.process_actions.update_configuration.message.error">
+                <source>Could not read the configuration for extension &quot;%1$s&quot;. No changes written.</source>
+                <target state="translated">Die Konfiguration der Extension &quot;%1$s&quot; konnte nicht gelesen werden. Es wurden keine Änderungen vorgenommen.</target>
             </trans-unit>
         </body>
     </file>
