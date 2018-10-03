@@ -1,3 +1,11 @@
+2018-10-03         [RELEASE] Release of devtools 1.1.0 (Nicole Cordes)
+2018-10-03 4a12844 [TASK] Raise TYPO3 dependencies to include 9.5 (Nicole Cordes)
+2018-10-03 dde6a97 [TASK] Update supporting files to EXT:my_skeleton 0.1.5 (Nicole Cordes)
+2018-10-03 9c2caff [BUGFIX] Add missing PHP requirement (Nicole Cordes)
+2018-10-03 d68306e [BUGFIX] Obtain severity class from proper object (Nicole Cordes)
+2018-10-03 4c8cfdc [BUGFIX] Use AjaxRoutes instead of AjaxHandler (Nicole Cordes)
+2018-05-27 0210f13 [FEATURE] add cli support for EM_CONF update (#4) (sventendo)
+
 2018-03-13         [RELEASE] Release of devtools 1.0.0 (Nicole Cordes)
 2018-03-13 7cc2094 [FEATURE] Add new extension icon (Nicole Cordes)
 2018-03-13 afb9f44 [TASK] Raise compatibility to TYPO3 8.7 (Nicole Cordes)
