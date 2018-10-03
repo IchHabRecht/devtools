@@ -7,7 +7,8 @@
         "developer",
         "tools"
     ],
-    "homepage": "https://github.com/IchHabRecht/TYPO3-devtools",
+    "homepage": "https://github.com/IchHabRecht/devtools",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Nicole Cordes",
@@ -15,12 +16,9 @@
             "role": "Developer"
         }
     ],
-    "license": "GPL-2.0+",
     "require": {
-        "typo3/cms-core": "^7.6 || ^8.7"
-    },
-    "suggest": {
-        "friendsofphp/php-cs-fixer": "Tool to automatically fix PHP coding standards issues"
+        "php": "^5.6 || >= 7.0 < 7.3",
+        "typo3/cms-core": "^7.6 || ^8.7 || ^9.5"
     },
     "autoload": {
         "psr-4": {
@@ -37,8 +35,10 @@
     },
     "extra": {
         "typo3/cms": {
+            "extension-key": "devtools",
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "web-dir": ".Build/Web"
+            "app-dir": ".Build",
+            "web-dir": ".Build/public"
         }
     }
 }

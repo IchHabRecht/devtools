@@ -36,6 +36,7 @@ define(['jquery', 'TYPO3/CMS/Backend/Modal', 'TYPO3/CMS/Backend/Severity'], func
     };
 
     Devtools.showInformationDialog = function(title, message) {
+        var btnClass = Severity.getCssClass ? Severity.getCssClass(Severity.info) : Modal.getSeverityClass(Severity.info);
         Modal.confirm(
             title,
             message,
@@ -43,7 +44,7 @@ define(['jquery', 'TYPO3/CMS/Backend/Modal', 'TYPO3/CMS/Backend/Severity'], func
             [
                 {
                     text: TYPO3.lang['button.ok'] || 'OK',
-                    btnClass: 'btn-' + Modal.getSeverityClass(Severity.info),
+                    btnClass: 'btn-' + btnClass,
                     active: true,
                     trigger: function() {
                         Modal.dismiss();
@@ -54,6 +55,7 @@ define(['jquery', 'TYPO3/CMS/Backend/Modal', 'TYPO3/CMS/Backend/Severity'], func
     };
 
     Devtools.showErrorDialog = function() {
+        var btnClass = Severity.getCssClass ? Severity.getSeverityClass(Severity.error) : Modal.getSeverityClass(Severity.error);
         Modal.confirm(
             TYPO3.lang['devtools.error.title'],
             TYPO3.lang['devtools.error.message'],
@@ -61,7 +63,7 @@ define(['jquery', 'TYPO3/CMS/Backend/Modal', 'TYPO3/CMS/Backend/Severity'], func
             [
                 {
                     text: TYPO3.lang['button.ok'] || 'OK',
-                    btnClass: 'btn-' + Modal.getSeverityClass(Severity.error),
+                    btnClass: 'btn-' + btnClass,
                     active: true,
                     trigger: function() {
                         Modal.dismiss();
