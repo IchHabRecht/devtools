@@ -26,6 +26,8 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
  ***************************************************************/
 
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -50,25 +52,28 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
     }
 
-    /**
-     * @param array $ajaxParams
-     * @param \TYPO3\CMS\Core\Http\AjaxRequestHandler $ajaxObject
-     */
-    public function updateConfigurationFile($ajaxParams, $ajaxObject)
+    public function updateConfigurationFile(ServerRequestInterface $request, ResponseInterface $response)
     {
         $extensionKey = GeneralUtility::_GP('extensionKey');
         if (empty($extensionKey)) {
-            return;
+            $response = $response->withStatus(500);
+            return $response;
         }
 
         $updated = $this->extensionUtility->updateConfiguration($extensionKey);
 
         if (!$updated) {
-            return;
+            $response = $response->withStatus(500);
+            return $response;
         }
 
-        $ajaxObject->setContentFormat('json');
-        $ajaxObject->addContent('title', $this->translate('title'));
-        $ajaxObject->addContent('message', sprintf($this->translate('message.success'), $extensionKey));
+        $response->getBody()->write(json_encode(
+            [
+                'title' => $this->translate('title'),
+                'message' => sprintf($this->translate('message.success'), $extensionKey),
+            ]
+        ));
+
+        return $response;
     }
 }

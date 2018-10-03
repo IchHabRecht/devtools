@@ -27,6 +27,7 @@ namespace IchHabRecht\Devtools\Slot\Extensionmanager;
 
 use IchHabRecht\Devtools\Controller\Slot\AbstractSlotController;
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -57,10 +58,16 @@ class ProcessActions
      */
     protected $isJavascriptIncluded = false;
 
-    public function __construct(ExtensionUtility $extensionUtility, IconFactory $iconFactory)
+    /**
+     * @var UriBuilder
+     */
+    private $uriBuilder;
+
+    public function __construct(ExtensionUtility $extensionUtility, IconFactory $iconFactory, UriBuilder $uriBuilder)
     {
         $this->extensionUtility = $extensionUtility;
         $this->iconFactory = $iconFactory;
+        $this->uriBuilder = $uriBuilder;
     }
 
     /**
@@ -111,12 +118,7 @@ class ProcessActions
             . ':slot.extensionmanager.process_actions.modified_files.title');
 
         return '<a href="'
-            . BackendUtility::getAjaxUrl(
-                'DevtoolsModifiedFilesController::listFiles',
-                [
-                    'extensionKey' => $extension['key'],
-                ]
-            )
+            . $this->uriBuilder->buildUriFromRoute('ajax_DevtoolsFilesModifiedList', ['extensionKey' => $extension['key']])
             . '" class="btn btn-default list-modified-files" title="' . htmlspecialchars($title) . '">'
             . $this->iconFactory->getIcon('status-dialog-warning', Icon::SIZE_SMALL)->render() . '</a>';
     }
@@ -137,12 +139,7 @@ class ProcessActions
                         . ':slot.extensionmanager.process_actions.update_configuration.title');
 
                     return '<a href="'
-                        . BackendUtility::getAjaxUrl(
-                            'DevtoolsUpdateConfigurationFileController::updateConfigurationFile',
-                            [
-                                'extensionKey' => $extension['key'],
-                            ]
-                        )
+                        . $this->uriBuilder->buildUriFromRoute('ajax_DevtoolsFilesModifiedUpdate', ['extensionKey' => $extension['key']])
                         . '" class="btn btn-default update-configuration-file" title="' . $title . '">'
                         . $this->iconFactory->getIcon('actions-document-export-t3d', Icon::SIZE_SMALL)->render() . '</a>';
                 }

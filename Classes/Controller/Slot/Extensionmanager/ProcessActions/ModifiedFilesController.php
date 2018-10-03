@@ -27,7 +27,8 @@ namespace IchHabRecht\Devtools\Controller\Slot\Extensionmanager\ProcessActions;
 
 use IchHabRecht\Devtools\Controller\Slot\AbstractSlotController;
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Http\AjaxRequestHandler;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -53,15 +54,12 @@ class ModifiedFilesController extends AbstractSlotController
         $this->extensionUtility = $extensionUtility ?: GeneralUtility::makeInstance(ExtensionUtility::class);
     }
 
-    /**
-     * @param array $ajaxParams
-     * @param AjaxRequestHandler $ajaxObject
-     */
-    public function listFiles($ajaxParams, $ajaxObject)
+    public function listFiles(ServerRequestInterface $request, ResponseInterface $response)
     {
         $extensionKey = GeneralUtility::_GP('extensionKey');
         if (empty($extensionKey)) {
-            return;
+            $response = $response->withStatus(500);
+            return $response;
         }
 
         $packageManager = GeneralUtility::makeInstance(PackageManager::class);
@@ -73,7 +71,8 @@ class ModifiedFilesController extends AbstractSlotController
         }
 
         if ($EM_CONF === null || empty($EM_CONF[$extensionKey])) {
-            return;
+            $response = $response->withStatus(500);
+            return $response;
         }
         $originalMd5HashArray = (array)unserialize($EM_CONF[$extensionKey]['_md5_values_when_last_written'], ['allowed_classes' => false]);
         $originalFileArray = array_keys($originalMd5HashArray);
@@ -101,8 +100,13 @@ class ModifiedFilesController extends AbstractSlotController
                 implode('<br />', $removedFiles);
         }
 
-        $ajaxObject->setContentFormat('json');
-        $ajaxObject->addContent('title', $this->translate('title'));
-        $ajaxObject->addContent('message', implode('<br /><br />', $messageArray));
+        $response->getBody()->write(json_encode(
+            [
+                'title' => $this->translate('title'),
+                'message' => implode('<br /><br />', $messageArray)
+            ]
+        ));
+
+        return $response;
     }
 }
