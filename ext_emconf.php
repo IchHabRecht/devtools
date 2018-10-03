@@ -20,7 +20,7 @@ $EM_CONF[$_EXTKEY] = array (
   'clearCacheOnLoad' => 0,
   'author' => 'Nicole Cordes',
   'author_email' => 'typo3@cordes.co',
-  'author_company' => 'CPS-IT GmbH',
+  'author_company' => 'biz-design',
   'version' => '1.0.0',
   'constraints' => 
   array (

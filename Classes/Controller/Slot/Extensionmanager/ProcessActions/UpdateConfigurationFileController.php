@@ -57,6 +57,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
         $extensionKey = GeneralUtility::_GP('extensionKey');
         if (empty($extensionKey)) {
             $response = $response->withStatus(500);
+
             return $response;
         }
 
@@ -64,6 +65,7 @@ class UpdateConfigurationFileController extends \IchHabRecht\Devtools\Controller
 
         if (!$updated) {
             $response = $response->withStatus(500);
+
             return $response;
         }
 

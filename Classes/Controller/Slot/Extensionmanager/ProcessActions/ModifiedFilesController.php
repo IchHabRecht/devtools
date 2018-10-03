@@ -59,6 +59,7 @@ class ModifiedFilesController extends AbstractSlotController
         $extensionKey = GeneralUtility::_GP('extensionKey');
         if (empty($extensionKey)) {
             $response = $response->withStatus(500);
+
             return $response;
         }
 
@@ -72,6 +73,7 @@ class ModifiedFilesController extends AbstractSlotController
 
         if ($EM_CONF === null || empty($EM_CONF[$extensionKey])) {
             $response = $response->withStatus(500);
+
             return $response;
         }
         $originalMd5HashArray = (array)unserialize($EM_CONF[$extensionKey]['_md5_values_when_last_written'], ['allowed_classes' => false]);
@@ -103,7 +105,7 @@ class ModifiedFilesController extends AbstractSlotController
         $response->getBody()->write(json_encode(
             [
                 'title' => $this->translate('title'),
-                'message' => implode('<br /><br />', $messageArray)
+                'message' => implode('<br /><br />', $messageArray),
             ]
         ));
 

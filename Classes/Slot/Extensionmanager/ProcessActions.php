@@ -28,7 +28,6 @@ namespace IchHabRecht\Devtools\Slot\Extensionmanager;
 use IchHabRecht\Devtools\Controller\Slot\AbstractSlotController;
 use IchHabRecht\Devtools\Utility\ExtensionUtility;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Package\Exception\UnknownPackageException;
