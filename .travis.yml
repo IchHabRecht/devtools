@@ -42,8 +42,6 @@ jobs:
       php: 7.0
     - stage: test
       php: 5.6
-    - stage: test
-      php: 5.5
 
     - stage: publish to ter
       if: tag IS present
